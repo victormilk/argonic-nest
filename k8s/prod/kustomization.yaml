@@ -7,5 +7,5 @@ namespace: argonic-prod
 
 images:
   - name: argonic
-    newName: argonic-prod
-    newTag: v1.0.1
+    newName: argonic
+    newTag: v1.0.0
