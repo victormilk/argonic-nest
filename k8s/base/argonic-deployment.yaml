@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argonic-deployment
+  labels:
+    app: argonic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: argonic
+  template:
+    metadata:
+      name: argonic
+      labels:
+        app: argonic
+    spec:
+      containers:
+        - name: argonic
+          image: argonic
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 5
+            failureThreshold: 3
+          resources:
+            limits:
+              cpu: 100m
+              memory: 1024Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+      restartPolicy: Always

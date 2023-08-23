@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../base
+
+namespace: argonic-prod
+
+images:
+  - name: argonic
+    newName: argonic-prod
+    newTag: v1.0.1
